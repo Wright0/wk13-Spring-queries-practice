@@ -31,15 +31,15 @@ public class WhiskyRepositoryImpl implements WhiskyRepositoryCustom {
         return result;
     }
 
-    @Transactional //This is not working... It can't access distillery.region.
+    @Transactional
     public List<Whisky> findByRegion(String region){
         List<Whisky> result = null;
         Session session = entityManager.unwrap(Session.class);
 
         try {
             Criteria criteria = session.createCriteria(Whisky.class);
-
-            criteria.add(Restrictions.eq("distillery.region", region));
+            criteria.createAlias("distillery", "distilleryAlias");
+            criteria.add(Restrictions.eq("distilleryAlias.region", region));
 
             result = criteria.list();
 

@@ -24,7 +24,7 @@ public class WhiskyController {
 
     @GetMapping(value = "/search/findByRegion")
     public List<Whisky> findByRegion(@RequestParam String region){
-        return whiskyRepository.findByRegion("Lowland");
+        return whiskyRepository.findByRegion(region);
     }
 
 }
